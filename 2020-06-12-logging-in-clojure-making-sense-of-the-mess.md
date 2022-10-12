@@ -123,13 +123,13 @@ directly or indirectly
 You can try this snippet to see if you need to add any extra exclusions.
 
 ``` shell
-clj -Stree | egrep '^\s*(commons-logging.*|log4j.*|org\.apache\.logging\.log4j/log4j|org\.slf4j/simple|org\.slf4j/slf4j-jcl|org\.slf4j/slf4j-nop|org\.slf4j/slf4j-log4j12|org\.slf4j/slf4j-log4j13) '
+clj -Stree | egrep '(commons-logging.*|log4j.*|org\.apache\.logging\.log4j/log4j|org\.slf4j/simple|org\.slf4j/slf4j-jcl|org\.slf4j/slf4j-nop|org\.slf4j/slf4j-log4j12|org\.slf4j/slf4j-log4j13) '
 ```
 
 or for Leiningen:
 
 ``` shell
-lein deps :tree | egrep '\[(commons-logging.*|log4j.*|org\.apache\.logging\.log4j/log4j|org\.slf4j/simple|org\.slf4j/slf4j-jcl|org\.slf4j/slf4j-nop|org\.slf4j/slf4j-log4j12|org\.slf4j/slf4j-log4j13) '
+lein deps :tree | egrep '(commons-logging.*|log4j.*|org\.apache\.logging\.log4j/log4j|org\.slf4j/simple|org\.slf4j/slf4j-jcl|org\.slf4j/slf4j-nop|org\.slf4j/slf4j-log4j12|org\.slf4j/slf4j-log4j13) '
 ```
 
 If you are using Leiningen then it's possible to declare exclusions at the top
