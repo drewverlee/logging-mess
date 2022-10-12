@@ -96,17 +96,23 @@ backend I recommend Logback. That's how you end up with the snippet at the top.
 ## Logback Mountain
 
 SLF4J will automatically figure out which backend is available, and use that
-one. This means that to make this work reliably you need to make sure there is
+one. This means that to make this work reliably you need to make sure
 one and only one logging backend in your dependencies. A lot of libraries will
-indirectly pull in the "nop" backend which is simply a placeholder that doesn't
-log anything. Use `lein deps :tree` or `clj -Stree` and add exclusions where
-necessary. For example:
+indirectly pull in the "nop" backend which will silence your logging. for example
+`org.slf4j/slf4j-nop` will cause slf4j to not log anything. Use `lein deps :tree` or `clj -Stree` and add exclusions where
+necessary. A quick and easy grep for nop will help identify these. e.g
+
+```shell
+clj -Stree | grep nop
+```
+
+and then you can exclude them:
 
 ``` clojure
 org.clojure/tools.deps.alpha {:mvn/version "0.6.480", :exclusions [org.slf4j/slf4j-nop]}
 ```
 
-Some of the libraries that you want to pipe into SLF4J will do their own
+Though rarely an issue, some of the libraries that you want to pipe into SLF4J will do their own
 auto-detection of where their logs will go, leading to more stuff to exclude.
 You probably want to avoid having any of these in your list of dependencies,
 directly or indirectly
@@ -116,7 +122,6 @@ directly or indirectly
 - org.apache.logging.log4j/log4j
 - org.slf4j/simple
 - org.slf4j/slf4j-jcl
-- org.slf4j/slf4j-nop
 - org.slf4j/slf4j-log4j12
 - org.slf4j/slf4j-log4j13
 
